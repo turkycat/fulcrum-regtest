@@ -1,0 +1,74 @@
+version: '3.8'
+networks:
+  bitcoin_regtest:
+    name: bitcoin_regtest
+    driver: bridge
+    ipam: 
+      config:
+        - subnet: 172.50.0.0/24
+
+services:
+  btc1:
+    container_name: btc1
+    image: ruimarinho/bitcoin-core:23
+    restart: always
+    ports:
+    #   - 18443
+       - 18444
+    networks:
+      - bitcoin_regtest
+    volumes:
+      - ./bitcoin:/home/bitcoin/btc1/.bitcoin
+    command: [
+      "-regtest",
+      #"-printtoconsole",
+      #"-txindex",
+      "-listen",
+      #"-rpcallowip=172.0.0.0/8",
+      #"-rpcbind=bitcoind_1",
+      "-rpcuser=turkycat",
+      "-rpcpassword=hunter1",
+    ]
+  btc2:
+    container_name: btc2
+    image: ruimarinho/bitcoin-core:23
+    depends_on:
+      - btc1
+    restart: always
+    ports:
+      - 18443:18443
+      - 18444:18444
+    networks:
+      - bitcoin_regtest
+    volumes:
+      - ./bitcoin:/home/bitcoin/btc2/.bitcoin
+    command: [
+      "-regtest",
+      #"-printtoconsole",
+      "-txindex",
+      "-listen",
+      "-rpcallowip=172.50.0/24",
+      "-rpcbind=btc2",
+      "-rpcuser=turkycat",
+      "-rpcpassword=hunter1",
+      "-connect=btc1"
+    ]
+  fulcrum:
+    container_name: fulcrum
+    image: cculianu/fulcrum
+    restart: always
+    depends_on:
+      - btc2
+    ports:
+      - 50001:50001
+    networks:
+      - bitcoin_regtest
+    volumes:
+      - ./fulcrum:/data
+    command: [
+      "Fulcrum",
+      "-t", "0.0.0.0:50001",
+      "-b", "btc2:18443",
+      "-u", "turkycat",
+      "-p", "hunter1",
+    ]
