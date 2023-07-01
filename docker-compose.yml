@@ -13,19 +13,18 @@ services:
     image: ruimarinho/bitcoin-core:23
     restart: always
     ports:
-    #   - 18443
+       - 18442:18443
        - 18444
     networks:
       - bitcoin_regtest
-    volumes:
-      - ./bitcoin:/home/bitcoin/btc1/.bitcoin
+    #volumes:
+    #  - ./bitcoin/btc1:/home/bitcoin/.bitcoin
     command: [
       "-regtest",
-      #"-printtoconsole",
-      #"-txindex",
       "-listen",
-      #"-rpcallowip=172.0.0.0/8",
-      #"-rpcbind=bitcoind_1",
+      "-rpcallowip=172.50.0.0/24",
+      "-rpcbind=btc1",
+      "-rpcbind=127.0.0.1",
       "-rpcuser=turkycat",
       "-rpcpassword=hunter1",
     ]
@@ -40,11 +39,10 @@ services:
       - 18444:18444
     networks:
       - bitcoin_regtest
-    volumes:
-      - ./bitcoin:/home/bitcoin/btc2/.bitcoin
+    #volumes:
+    #  - ./bitcoin/btc2:/home/bitcoin/.bitcoin
     command: [
       "-regtest",
-      #"-printtoconsole",
       "-txindex",
       "-listen",
       "-rpcallowip=172.50.0/24",
