@@ -22,6 +22,7 @@ services:
     command: [
       "-regtest",
       "-listen",
+      "-fallbackfee=0.0002",  # 20 sats per byte
       "-rpcallowip=172.50.0.0/24",
       "-rpcbind=btc1",
       "-rpcbind=127.0.0.1",
@@ -45,6 +46,7 @@ services:
       "-regtest",
       "-txindex",
       "-listen",
+      "-fallbackfee=0.0002",  # 20 sats per byte
       "-rpcallowip=172.50.0/24",
       "-rpcbind=btc2",
       "-rpcuser=turkycat",
