@@ -61,8 +61,8 @@ services:
       - 50001:50001
     networks:
       - bitcoin_regtest
-    volumes:
-      - ./fulcrum:/data
+    #volumes:
+    #  - ./fulcrum:/data
     command: [
       "Fulcrum",
       "-t", "0.0.0.0:50001",
