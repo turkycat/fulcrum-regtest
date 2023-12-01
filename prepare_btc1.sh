@@ -18,5 +18,5 @@ then
 fi
 
 descriptor_filename=descriptors/desc-`date +%Y%m%d-%H%M%S`
-curl $AUTH --data-binary '{"jsonrpc": "1.0", "id": "0", "method": "listdescriptors", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18442/ > ${descriptor_filename} 2>/dev/null
-curl $AUTH --data-binary '{"jsonrpc": "1.0", "id": "0", "method": "listdescriptors", "params": [true]}' -H 'content-type: text/plain;' http://127.0.0.1:18442/ > ${descriptor_filename}_private 2>/dev/null
+curl $AUTH --data-binary '{"jsonrpc": "1.0", "id": "0", "method": "listdescriptors", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18442/ | jq > ${descriptor_filename} 2>/dev/null
+curl $AUTH --data-binary '{"jsonrpc": "1.0", "id": "0", "method": "listdescriptors", "params": [true]}' -H 'content-type: text/plain;' http://127.0.0.1:18442/ | jq > ${descriptor_filename}_private 2>/dev/null
