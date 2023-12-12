@@ -4,8 +4,11 @@
   "description": "bitcoin core and fulcrum",
   "main": "index.ts",
   "scripts": {
+    "dev": "tsx src/index.ts",
+    "devw": "tsx watch --clear-screen=false src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/turkycat/fulcrum-regtest.git"
@@ -23,5 +26,9 @@
   "homepage": "https://github.com/turkycat/fulcrum-regtest#readme",
   "dependencies": {
     "bitcoin-core": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "tsx": "^4.6.2"
   }
 }

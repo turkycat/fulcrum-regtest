@@ -6,7 +6,7 @@
 docker compose up -d 
 ```
 
-if you want to use the NPM features (and `index.ts`) then also
+if you want to use the NPM features then also
 
 ```bash
 npm install
@@ -32,14 +32,28 @@ you'll find the bitcoin data directory under `/home/bitcoin/.bitcoin/regtest`
 
 ## testing with bitcoin-core npm package
 
-note: this `bitcoin-core` NPM package from https://github.com/ruimarinho/bitcoin-core enumerates the RPC methods from a file at `node_modules/bitcoin-core/src/methods.js` and appears to be missing the `listDescriptors` method. I've added the following lines to the file. After adding these lines, the `listDescriptors` function works fine in the `index.ts` script.
+### running the typescript code
+
+I've modularized a `RegtestClient` class to make it easy to setup and interact with a client. It extends the [ruimarinho/bitcoin-core](https://github.com/ruimarinho/bitcoin-core) NPM package and simplified its construction and use.
+
+simply run
+
+```bash
+npm run dev
+```
+
+to create a wallet, fund it, and prepare it to act as a source wallet for creating transactions and mining blocks on command.
+
+### notes on this NPM package
+
+note: this `bitcoin-core` NPM package from https://github.com/ruimarinho/bitcoin-core enumerates the RPC methods from a file at `node_modules/bitcoin-core/src/methods.js` and appears to be missing the `listDescriptors` method. I've added the following lines to the file. After adding these lines, the `listDescriptors` function works fine. [see the pull request](https://github.com/ruimarinho/bitcoin-core/pull/151)
 
 ```js
   // line 544
   listDescriptors: {
     category: 'wallet',
     features: {
-      multiwallet: '>=0.15.0'
+      multiwallet: '>=0.22.0'
     },
     version: '>=0.22.0'
   },
@@ -47,7 +61,7 @@ note: this `bitcoin-core` NPM package from https://github.com/ruimarinho/bitcoin
 
 ### version 0.23.0 supported methods
 
-add `console.log(this.methods);` to line 106 in `node_modules/bitcoin-core/src/index.js`
+add `console.log(this.methods);` to line 105 in `node_modules/bitcoin-core/src/index.js`
 
 https://github.com/ruimarinho/bitcoin-core
 
@@ -154,6 +168,7 @@ https://github.com/ruimarinho/bitcoin-core
   listaccounts: { features: { multiwallet: [Object] }, supported: false },
   listaddressgroupings: { features: { multiwallet: [Object] }, supported: true },
   listbanned: { features: {}, supported: true },
+  listdescriptors: { features: { multiwallet: [Object] }, supported: true },
   listlabels: { features: { multiwallet: [Object] }, supported: true },
   listlockunspent: { features: { multiwallet: [Object] }, supported: true },
   listreceivedbyaccount: { features: { multiwallet: [Object] }, supported: false },
