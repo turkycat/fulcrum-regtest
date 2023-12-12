@@ -1,0 +1,27 @@
+{
+  "name": "fulcrum-regtest",
+  "version": "1.0.0",
+  "description": "bitcoin core and fulcrum",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/turkycat/fulcrum-regtest.git"
+  },
+  "keywords": [
+    "fulcrum",
+    "bitcoin",
+    "regtest"
+  ],
+  "author": "turkycat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/turkycat/fulcrum-regtest/issues"
+  },
+  "homepage": "https://github.com/turkycat/fulcrum-regtest#readme",
+  "dependencies": {
+    "bitcoin-core": "^4.1.0"
+  }
+}

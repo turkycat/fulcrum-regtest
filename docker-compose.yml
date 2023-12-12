@@ -20,6 +20,7 @@ services:
     #volumes:
     #  - ./bitcoin/btc1:/home/bitcoin/.bitcoin
     command: [
+      "-printtoconsole",
       "-regtest",
       "-listen",
       "-fallbackfee=0.0002",  # 20 sats per byte
@@ -43,6 +44,7 @@ services:
     #volumes:
     #  - ./bitcoin/btc2:/home/bitcoin/.bitcoin
     command: [
+      "-printtoconsole",
       "-regtest",
       "-txindex",
       "-listen",

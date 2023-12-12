@@ -1,2 +1,4 @@
 fulcrum/
 descriptors/
+.vscode/
+node_modules/
